@@ -25,9 +25,9 @@ export const StatCard: React.FC<StatCardProps> = ({ title, value, trend, trendLa
     const trendColorClass = isPositive ? 'text-emerald-500' : 'text-red-500';
 
     // Determine icon based on title
-    let Icon = WalletIcon;
-    if (title === "Income") Icon = MoveDownLeft;
-    if (title === "Expense") Icon = MoveUpRight;
+    let Icon: ({ size }: { size: number }) => React.JSX.Element = WalletIcon;
+    if (title === "Income") Icon = ({ size }: { size: number }) => <MoveDownLeft size={size} />;
+    if (title === "Expense") Icon = ({ size }: { size: number }) => <MoveUpRight size={size} />;
 
     // Calculate how many bars should be colored based on percentage
     const activeCount = Math.floor(data.length * (percentage / 100));
