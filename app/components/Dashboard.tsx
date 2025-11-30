@@ -35,7 +35,7 @@ export const Dashboard: React.FC = () => {
     if (isMobile) {
       setIsMobileOpen(!isMobileOpen);
     } else {
-      setIsSidebarCollapsed(!isSidebarCollapsed);
+      setIsSidebarCollapsed(prev => !prev);
     }
   };
 

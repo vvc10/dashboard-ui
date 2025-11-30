@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid } from 'recharts';
 import { MoreHorizontal, ChevronDown, ChevronsLeftRight } from 'lucide-react';
 
@@ -72,6 +72,28 @@ const CustomBar = (props: any) => {
 };
 
 export const MainChart: React.FC = () => {
+  const [selectedPeriod, setSelectedPeriod] = useState('Yearly');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const periods = ['Yearly', 'Monthly', 'Weekly', 'Daily'];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
   return (
     <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[20px] flex flex-col h-full">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start gap-4 mb-4 sm:mb-6">
@@ -89,10 +111,34 @@ export const MainChart: React.FC = () => {
         </div>
         
         <div className="flex items-center gap-2">
-           <button className="flex items-center gap-2 px-2 sm:px-3 py-1.5 border border-gray-200 rounded-lg text-xs sm:text-sm font-medium text-gray-600 hover:bg-gray-50">
-             <span className="hidden sm:inline">Yearly</span>
-             <ChevronsLeftRight className="rotate-90" size={14} />
-           </button>
+           <div className="relative" ref={dropdownRef}>
+             <button 
+               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+               className="flex items-center gap-2 px-2 sm:px-3 py-1.5 border border-gray-200 rounded-lg text-xs sm:text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+             >
+               <span className="hidden sm:inline">{selectedPeriod}</span>
+               <span className="sm:hidden">{selectedPeriod.slice(0, 3)}</span>
+               <ChevronsLeftRight className={`rotate-90 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} size={14} />
+             </button>
+             {isDropdownOpen && (
+               <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                 {periods.map((period) => (
+                   <button
+                     key={period}
+                     onClick={() => {
+                       setSelectedPeriod(period);
+                       setIsDropdownOpen(false);
+                     }}
+                     className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                       selectedPeriod === period ? 'bg-gray-50 font-medium text-gray-900' : 'text-gray-600'
+                     }`}
+                   >
+                     {period}
+                   </button>
+                 ))}
+               </div>
+             )}
+           </div>
            <button className="flex items-center gap-2 px-1.5 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">
              <MoreHorizontal size={20} />
            </button>

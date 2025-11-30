@@ -21,6 +21,16 @@ export const TransactionHistory: React.FC = () => {
         }
     };
 
+    const toggleSelectAll = () => {
+        if (selected.length === transactions.length) {
+            setSelected([]);
+        } else {
+            setSelected(transactions.map(tx => tx.id));
+        }
+    };
+
+    const isAllSelected = selected.length === transactions.length && transactions.length > 0;
+
     return (
         <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[20px] flex flex-col h-full">
              <div className="p-2 pb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
@@ -44,7 +54,14 @@ export const TransactionHistory: React.FC = () => {
                         <thead>
                             <tr className="border-b border-zinc-700/10 text-xs text-gray-400 tracking-wider">
                                 <th className="px-3 sm:px-6 py-3 sm:py-4 font-medium w-12">
-                                    <div className="w-4 h-4 rounded border border-gray-300 flex items-center justify-center cursor-pointer"></div>
+                                    <div 
+                                        onClick={toggleSelectAll}
+                                        className={`w-4 h-4 rounded border flex items-center justify-center cursor-pointer transition-colors ${
+                                            isAllSelected ? 'bg-blue-500 border-blue-500 text-white' : 'border-gray-300'
+                                        }`}
+                                    >
+                                        {isAllSelected && <Check size={10} strokeWidth={4} />}
+                                    </div>
                                 </th>
                                 <th className="px-3 sm:px-6 py-3 sm:py-4 font-medium">Name</th>
                                 <th className="px-3 sm:px-6 py-3 sm:py-4 font-medium hidden sm:table-cell">Date</th>

@@ -54,10 +54,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle, isMobil
               </svg>
             </div>
             <button 
-              onClick={onToggle}
-              className="text-gray-400 hover:text-gray-600 transition-colors flex items-center justify-center p-2 rounded-lg hover:bg-gray-50 w-full"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (onToggle) {
+                  onToggle();
+                }
+              }}
+              className="text-gray-400 hover:text-gray-600 transition-colors flex items-center justify-center p-2 rounded-lg hover:bg-gray-50 w-full cursor-pointer relative z-50"
               aria-label="Expand sidebar"
               title="Expand sidebar"
+              type="button"
             >
                 <PanelLeft size={20} strokeWidth={2} />
             </button>
@@ -65,9 +72,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle, isMobil
         )}
         {!isCollapsed && (
           <button 
-            onClick={onMobileClose || onToggle}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-            aria-label={onMobileClose ? "Close sidebar" : "Collapse sidebar"}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Always call onToggle - it handles both mobile and desktop
+              onToggle();
+            }}
+            className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            aria-label="Collapse sidebar"
+            type="button"
           >
               <PanelLeft size={20} strokeWidth={2} />
           </button>
