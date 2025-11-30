@@ -1,0 +1,5 @@
+{
+  "name": "Acme Inc. Dashboard",
+  "description": "A pixel-perfect recreation of the Acme Inc. financial dashboard featuring analytics, transaction history, and card management.",
+  "requestFramePermissions": []
+}
