@@ -1,14 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, ChevronDown, Check } from 'lucide-react';
-
-const transactions = [
-    { id: '1', name: 'Adobe After Effect', date: 'Sat, 20 Apr 2025', category: 'Subscription', amount: 80.00 },
-    { id: '2', name: 'McDonald\'s', date: 'Fri, 19 Apr 2025', category: 'Food', amount: 32.00 },
-    { id: '3', name: 'Levi\'s', date: 'Tue, 12 Apr 2025', category: 'Shopping', amount: 50.00 },
-    { id: '4', name: 'Adobe After Effect', date: 'Sat, 10 Apr 2025', category: 'Subscription', amount: 80.00 },
-];
+import { Calendar, Check } from 'lucide-react';
+import { TRANSACTIONS } from '@/app/data/constants';
+import { formatCurrency } from '@/app/utils/helpers';
 
 export const TransactionHistory: React.FC = () => {
     const [selected, setSelected] = useState<string[]>([]);
@@ -22,14 +17,14 @@ export const TransactionHistory: React.FC = () => {
     };
 
     const toggleSelectAll = () => {
-        if (selected.length === transactions.length) {
+        if (selected.length === TRANSACTIONS.length) {
             setSelected([]);
         } else {
-            setSelected(transactions.map(tx => tx.id));
+            setSelected(TRANSACTIONS.map(tx => tx.id));
         }
     };
 
-    const isAllSelected = selected.length === transactions.length && transactions.length > 0;
+    const isAllSelected = selected.length === TRANSACTIONS.length && TRANSACTIONS.length > 0;
 
     return (
         <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[20px] flex flex-col h-full">
@@ -70,7 +65,7 @@ export const TransactionHistory: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className="text-xs sm:text-sm">
-                            {transactions.map((tx) => (
+                            {TRANSACTIONS.map((tx) => (
                                 <tr key={tx.id} className="group hover:bg-gray-50 transition-colors">
                                     <td className="px-3 sm:px-6 py-3 sm:py-4">
                                         <div 
@@ -83,7 +78,7 @@ export const TransactionHistory: React.FC = () => {
                                     <td className="px-3 sm:px-6 py-3 sm:py-4 font-medium text-gray-900">{tx.name}</td>
                                     <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-500 hidden sm:table-cell">{tx.date}</td>
                                     <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-500 hidden md:table-cell">{tx.category}</td>
-                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-right font-medium text-gray-900 saira-bold">${tx.amount.toFixed(2)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-right font-medium text-gray-900 saira-bold">{formatCurrency(tx.amount)}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -7,6 +7,7 @@ import {
     Loader
 } from 'lucide-react';
 import { BarChart, Bar, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import { CREDIT_CARD_DATA, BUDGET_DATA } from '@/app/data/constants';
 
 // --- Stat Card ---
 interface StatCardProps {
@@ -147,21 +148,21 @@ export const CreditCardWidget: React.FC = () => {
                             <Loader />
                             Connected Card
                         </div>
-                        <span className="font-bold saira-bold text-gray-900">8 Accounts</span>
+                        <span className="font-bold saira-bold text-gray-900">{CREDIT_CARD_DATA.accounts} Accounts</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                         <div className="flex items-center gap-3 text-gray-500 font-medium">
                             <Loader />
                             Total Balance
                         </div>
-                        <span className="font-bold saira-bold text-gray-900">$227,200</span>
+                        <span className="font-bold saira-bold text-gray-900">{CREDIT_CARD_DATA.totalBalance}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                         <div className="flex items-center gap-3 text-gray-500 font-medium">
                             <Loader />
                             Total Saving
                         </div>
-                        <span className="font-bold saira-bold text-gray-900">$35,610</span>
+                        <span className="font-bold saira-bold text-gray-900">{CREDIT_CARD_DATA.totalSaving}</span>
                     </div>
                 </div>
 
@@ -232,10 +233,10 @@ export const BudgetSavingWidget: React.FC = () => {
                 <div>
                     <p className="text-xs font-medium text-gray-500 mb-1">Total Saving</p>
                     <div className="flex flex-row justify-between items-end gap-2 sm:gap-3">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight saira-bold">$35,610</h2>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight saira-bold">{BUDGET_DATA.totalSaving}</h2>
                         <div className="text-right mb-1.5 flex flex-col items-end">
-                            <span className="text-[22px] font-bold saira-bold px-1.5 py-0.5 rounded-full mb-0.5">+12.3%</span>
-                            <p className="text-[12px] text-gray-400 font-medium whitespace-nowrap">from last month</p>
+                            <span className="text-[22px] font-bold saira-bold px-1.5 py-0.5 rounded-full mb-0.5">+{BUDGET_DATA.trend}%</span>
+                            <p className="text-[12px] text-gray-400 font-medium whitespace-nowrap">{BUDGET_DATA.trendLabel}</p>
                         </div>
                     </div>
                 </div>

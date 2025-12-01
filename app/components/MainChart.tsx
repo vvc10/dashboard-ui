@@ -2,22 +2,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid } from 'recharts';
-import { MoreHorizontal, ChevronDown, ChevronsLeftRight } from 'lucide-react';
-
-const data = [
-  { name: 'Jan', value: 12000 },
-  { name: 'Feb', value: 16000 },
-  { name: 'Mar', value: 19000 },
-  { name: 'Apr', value: 17000 },
-  { name: 'May', value: 24000 },
-  { name: 'Jun', value: 28712, active: true },
-  { name: 'Jul', value: 21000 },
-  { name: 'Aug', value: 23000 },
-  { name: 'Sep', value: 25000 },
-  { name: 'Oct', value: 28000 },
-  { name: 'Nov', value: 22000 },
-  { name: 'Dec', value: 18000 },
-];
+import { MoreHorizontal, ChevronsLeftRight } from 'lucide-react';
+import { CHART_DATA, CHART_PERIODS } from '@/app/data/constants';
+import { formatNumber } from '@/app/utils/helpers';
 
 const CustomTooltip = ({ active, payload, label, coordinate }: any) => {
   if (active && payload && payload.length) {
@@ -33,7 +20,7 @@ const CustomTooltip = ({ active, payload, label, coordinate }: any) => {
           transform: 'translateX(-50%)',
         }}
       >
-        <p className="font-semibold saira-bold">${payload[0].value.toLocaleString()}</p>
+        <p className="font-semibold saira-bold">${formatNumber(payload[0].value)}</p>
         <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-900"></div>
       </div>
     );
@@ -72,11 +59,9 @@ const CustomBar = (props: any) => {
 };
 
 export const MainChart: React.FC = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState('Yearly');
+  const [selectedPeriod, setSelectedPeriod] = useState<typeof CHART_PERIODS[number]>('Yearly');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const periods = ['Yearly', 'Monthly', 'Weekly', 'Daily'];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -122,7 +107,7 @@ export const MainChart: React.FC = () => {
              </button>
              {isDropdownOpen && (
                <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                 {periods.map((period) => (
+                 {CHART_PERIODS.map((period) => (
                    <button
                      key={period}
                      onClick={() => {
@@ -148,7 +133,7 @@ export const MainChart: React.FC = () => {
       <div className="flex-1 w-full min-h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={data}
+            data={CHART_DATA}
             margin={{
               top: 20,
               right: 0,
@@ -191,7 +176,7 @@ export const MainChart: React.FC = () => {
               allowEscapeViewBox={{ x: true, y: true }}
             />
             <Bar dataKey="value" shape={<CustomBar />} radius={[8, 8, 8, 8]}>
-              {data.map((entry, index) => (
+              {CHART_DATA.map((entry, index) => (
                 <Cell 
                     key={`cell-${index}`} 
                     fill={entry.active ? '#3B82F6' : '#F3F4F6'} 
