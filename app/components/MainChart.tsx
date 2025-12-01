@@ -80,7 +80,7 @@ export const MainChart: React.FC = () => {
   }, [isDropdownOpen]);
 
   return (
-    <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[20px] flex flex-col h-full">
+    <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[25px] flex flex-col h-full">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start gap-4 mb-4 sm:mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -99,14 +99,14 @@ export const MainChart: React.FC = () => {
            <div className="relative" ref={dropdownRef}>
              <button 
                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-               className="flex items-center gap-2 px-2 sm:px-3 py-1.5 border border-gray-200 rounded-lg text-xs sm:text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+               className="flex items-center gap-2 px-2 sm:px-3 py-1.5 border border-gray-200 rounded-[10px] text-xs sm:text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
              >
                <span className="hidden sm:inline">{selectedPeriod}</span>
                <span className="sm:hidden">{selectedPeriod.slice(0, 3)}</span>
                <ChevronsLeftRight className={`rotate-90 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} size={14} />
              </button>
              {isDropdownOpen && (
-               <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+               <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-[10px] shadow-lg z-50">
                  {CHART_PERIODS.map((period) => (
                    <button
                      key={period}
@@ -124,7 +124,7 @@ export const MainChart: React.FC = () => {
                </div>
              )}
            </div>
-           <button className="flex items-center gap-2 px-1.5 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">
+           <button className="flex items-center gap-2 px-1.5 py-1.5 border border-gray-200 rounded-[10px] text-sm font-medium text-gray-600 hover:bg-gray-50">
              <MoreHorizontal size={20} />
            </button>
         </div>

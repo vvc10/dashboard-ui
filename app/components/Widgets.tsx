@@ -4,10 +4,12 @@ import React from 'react';
 import {
     MoreHorizontal, Plus, ArrowUpRight, MoveUpRight, MoveDownLeft, ArrowDownLeft, CreditCard,
     Send, Wifi, User, Wallet, Sun,
-    Loader
+    Loader,
+    Sparkle
 } from 'lucide-react';
 import { BarChart, Bar, ResponsiveContainer, Cell, Tooltip } from 'recharts';
-import { CREDIT_CARD_DATA, BUDGET_DATA } from '@/app/data/constants';
+import { CREDIT_CARD_DATA, BUDGET_DATA, SAVING_CATEGORIES } from '@/app/data/constants';
+import { formatCurrency } from '@/app/utils/helpers';
 
 // --- Stat Card ---
 interface StatCardProps {
@@ -34,7 +36,7 @@ export const StatCard: React.FC<StatCardProps> = ({ title, value, trend, trendLa
     const activeCount = Math.floor(data.length * (percentage / 100));
 
     return (
-        <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[20px] flex flex-col justify-between h-full">
+        <div className="bg-zinc-700/2 p-2 sm:p-3 border border-zinc-700/10 rounded-[25px] flex flex-col justify-between h-full">
             <div className="flex items-start justify-between mb-3 sm:mb-4">
                 <div className="flex gap-2 sm:gap-3 items-center">
                     <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-center text-gray-500">
@@ -87,7 +89,7 @@ export const CreditCardWidget: React.FC = () => {
                     <Plus size={16} /> Add Card
                 </button>
             </div>
-            <div className="border border-zinc-700/10 rounded-[30px] p-4">
+            <div className="border border-zinc-700/10 rounded-[20px] p-4">
                 {/* Visual Card - Metallic Silver Look */}
                 <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden mb-8 shadow-xl group transition-transform hover:scale-[1.02] duration-300">
                     {/* Metallic Background Base */}
@@ -184,7 +186,7 @@ export const CreditCardWidget: React.FC = () => {
 const CustomBudgetBar = (props: any) => {
     const { x, y, width, height, payload } = props;
     const index = payload?.index ?? 0;
-    
+
     // Determine color based on bar index
     let fillColor = '';
     if (index < 30) {
@@ -200,7 +202,7 @@ const CustomBudgetBar = (props: any) => {
         // Last 5 bars (45-49): gray with gradient
         fillColor = `url(#grayGradient-${index})`;
     }
-    
+
     return (
         <rect
             x={x}
@@ -218,7 +220,7 @@ export const BudgetSavingWidget: React.FC = () => {
     const data = Array.from({ length: 50 }).map((_, index) => ({ value: 100, index }));
 
     return (
-        <div className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm h-full flex flex-col">
+        <div className="bg-white p-3 sm:p-4 rounded-[25px] sm:rounded-[25px] border border-gray-100 shadow-sm h-full flex flex-col">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                     <span className="text-gray-400"><PieChartIcon size={18} /></span>
@@ -235,7 +237,7 @@ export const BudgetSavingWidget: React.FC = () => {
                     <div className="flex flex-row justify-between items-end gap-2 sm:gap-3">
                         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight saira-bold">{BUDGET_DATA.totalSaving}</h2>
                         <div className="text-right mb-1.5 flex flex-col items-end">
-                            <span className="text-[22px] font-bold saira-bold px-1.5 py-0.5 rounded-full mb-0.5">+{BUDGET_DATA.trend}%</span>
+                            <span className="text-[22px] font-bold saira-bold px-1.5 py-0.5 rounded-full mb-0.5">+{BUDGET_DATA.trend.toFixed(1).replace('.', ',')}%</span>
                             <p className="text-[12px] text-gray-400 font-medium whitespace-nowrap">{BUDGET_DATA.trendLabel}</p>
                         </div>
                     </div>
@@ -256,7 +258,7 @@ export const BudgetSavingWidget: React.FC = () => {
                                 {Array.from({ length: 5 }).map((_, i) => (
                                     <linearGradient key={`gray-${i}`} id={`grayGradient-${45 + i}`} x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="0%" stopColor="#9CA3AF" stopOpacity="0.5" />
-                                     </linearGradient>
+                                    </linearGradient>
                                 ))}
                             </defs>
                             <Bar dataKey="value" shape={<CustomBudgetBar />} radius={[2, 2, 2, 2]}>
@@ -266,6 +268,19 @@ export const BudgetSavingWidget: React.FC = () => {
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
+                </div>
+
+                {/* Saving Categories Breakdown */}
+                <div className="mt-4 space-y-3">
+                    {SAVING_CATEGORIES.map((category) => (
+                        <div key={category.id} className="flex items-center justify-between">
+                            <div className="flex flex-row gap-4 items-center">
+                                <Loader size={24} className={`${category.icon}`} />
+                                <span className="text-[12x] text-gray-700 font-medium">{category.name}</span>
+                            </div>
+                             <span className="text-[14px] font-semibold text-gray-900 saira-bold">{formatCurrency(category.amount)}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

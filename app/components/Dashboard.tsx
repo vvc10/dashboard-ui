@@ -58,7 +58,7 @@ export const Dashboard: React.FC = () => {
           </div>
         </header>
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 pb-4">
-          <div className="flex flex-col gap-2 w-full lg:w-[70%] border border-zinc-700/10 rounded-[20px] sm:rounded-[30px] p-4 sm:p-6 lg:p-[20px] mb-4">
+          <div className="flex flex-col gap-2 w-full lg:w-[70%] border border-zinc-700/10 rounded-[25px] sm:rounded-[30px] p-4 sm:p-6 lg:p-[20px] mb-4">
             {/* Top Stats Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
               {STAT_CARDS.map((stat) => (

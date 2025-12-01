@@ -48,10 +48,11 @@ export const CHART_DATA = [
 ];
 
 export const TRANSACTIONS = [
-  { id: '1', name: 'Adobe After Effect', date: 'Sat, 20 Apr 2025', category: 'Subscription', amount: 80.00 },
-  { id: '2', name: 'McDonald\'s', date: 'Fri, 19 Apr 2025', category: 'Food', amount: 32.00 },
-  { id: '3', name: 'Levi\'s', date: 'Tue, 12 Apr 2025', category: 'Shopping', amount: 50.00 },
-  { id: '4', name: 'Adobe After Effect', date: 'Sat, 10 Apr 2025', category: 'Subscription', amount: 80.00 },
+  { id: '1', name: 'Paypal Withdraw', date: 'Oct 12, 2025', category: 'Withdraw', amount: 1450.00, icon: 'paypal' },
+  { id: '2', name: 'Youtube Premium', date: 'Oct 12, 2025', category: 'Subscription', amount: 12.00, icon: 'youtube' },
+  { id: '3', name: 'Adobe After Effect', date: 'Sat, 20 Apr 2025', category: 'Subscription', amount: 80.00, icon: 'adobe' },
+  { id: '4', name: 'McDonald\'s', date: 'Fri, 19 Apr 2025', category: 'Food', amount: 32.00, icon: 'mcdonalds' },
+  { id: '5', name: 'Levi\'s', date: 'Tue, 12 Apr 2025', category: 'Shopping', amount: 50.00, icon: 'levis' },
 ];
 
 export const CHART_PERIODS = ['Yearly', 'Monthly', 'Weekly', 'Daily'] as const;
@@ -67,6 +68,12 @@ export const BUDGET_DATA = {
   trend: 12.3,
   trendLabel: 'from last month',
 };
+
+export const SAVING_CATEGORIES = [
+  { id: '1', name: 'Investment', amount: 14800.00, icon: 'text-[#3b82f6]' },
+  { id: '2', name: 'Holiday', amount: 8450.00, icon: 'text-[#06b6d4]' },
+  { id: '3', name: 'New Home', amount: 7200.00, icon: 'text-[#39c597]' },
+];
 
 export const BREAKPOINTS = {
   mobile: 640,

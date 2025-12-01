@@ -12,7 +12,7 @@ export interface Transaction {
   date: string;
   category: string;
   amount: number;
-  icon?: string;
+  icon?: 'paypal' | 'youtube' | 'adobe' | 'mcdonalds' | 'levis' | string;
 }
 
 export interface StatCardData {

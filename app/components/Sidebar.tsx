@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { 
   Wallet, CreditCard, PieChart, BarChart2, Banknote, TrendingUp, 
   HelpCircle, Settings, Search, Home, List, ChevronUp, ChevronDown, PanelLeft, Sparkles,
-  Sparkle
+  Sparkle, ChevronsUpDown, User
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -309,8 +309,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle, isMobil
 
       {/* Upgrade Banner - Fixed to Bottom */}
       {!isCollapsed && (
-        <div className="p-4 flex-shrink-0 border-t border-gray-100">
-          <div className="bg-white rounded-[20px] p-3 text-gray-900 relative overflow-hidden group cursor-pointer border border-zinc-700/5">
+        <div className="p-4 flex-shrink-0">
+          <div className="bg-white rounded-[20px] p-3 shadow-sm text-gray-900 relative overflow-hidden group cursor-pointer border border-zinc-700/10 mb-3">
               {/* Dotted pattern gradient in top-right */}
               <div 
                 className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden rounded-2xl"
@@ -333,18 +333,35 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle, isMobil
               <h4 className="font-semibold text-base mb-1 text-gray-900 relative z-10">Upgrade Now</h4>
               <p className="text-xs text-gray-500 mb-4 font-medium relative z-10">You have 100 credits left</p>
               
-              <button className="w-full py-2.5 bg-white border border-zinc-700/2 text-gray-900 text-xs font-bold rounded-[10px] hover:bg-gray-50 transition-colors relative z-10">
+              <button className="w-fit px-4 py-2.5 bg-white border border-zinc-700/2 text-gray-900 text-xs font-bold rounded-[10px] hover:bg-gray-50 transition-colors relative z-10">
                   Get more credits
               </button>
+          </div>
+          
+          {/* Profile Card */}
+          <div className="bg-gray-50 border border-zinc-700/10 rounded-[20px] p-3 flex items-center gap-3 cursor-pointer transition-colors">
+            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <User size={20} className="text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-sm text-gray-900 truncate">Pankaj</p>
+              <p className="text-xs text-gray-500 truncate">hello@acedesign...</p>
+            </div>
+            <ChevronsUpDown size={16} className="text-gray-400 flex-shrink-0" />
           </div>
         </div>
       )}
       {isCollapsed && (
-        <div className="p-2 flex-shrink-0 border-t border-gray-100">
+        <div className="p-2 flex-shrink-0 border-t border-gray-100 flex flex-col gap-2">
           <div className="bg-white rounded-xl p-3 text-gray-900 relative overflow-hidden shadow-lg group cursor-pointer flex items-center justify-center border border-gray-200" title="Upgrade Now">
               <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center border border-gray-600">
                   <Sparkle size={16} className="text-white fill-white stroke-white" />
               </div>
+          </div>
+          <div className="bg-gray-50 rounded-xl p-2 flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors" title="Pankaj">
+            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+              <User size={16} className="text-white" />
+            </div>
           </div>
         </div>
       )}
